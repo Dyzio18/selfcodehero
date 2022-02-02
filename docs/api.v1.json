@@ -1,0 +1,69 @@
+{
+  // missions (Array[])
+  "missions": {
+    "id": "<UUID*>",
+    "title": "<String>",
+    "desc": "<String>",
+    "data": {},
+    "statement": [{
+      "type": "<Enum>",
+      "rule": "<Enum>",
+      "value": "<String>"
+    }],
+    "task": [{
+      "title": "<String>",
+      "desc": "<String>",
+      "goal": "<String>",
+      "statement": [{
+        "type": "<Enum>",
+        "rule": "<Enum>",
+        "value": "<String>"
+      }]
+    }],
+    "gain": [{
+      "type": "<BadgeId?>",
+      "value": "<Number?>",
+      "properties": "<String?>"
+    }]
+  },
+
+  // badges <Array[]>
+  "badges": {
+    "id": "<UUID*>",
+    "name": "<String>",
+    "desc": "<String>",
+    "url": "<String>",
+    "data": {}
+  },
+
+  // players <Array[]>
+  "players": {
+    "id": "<UUID>",
+    "nick": "<String>",
+    "points": "<Number>",
+    "xp": "<Number>",
+    "level": "<Number>",
+    "badges": ["<BadgeId>"],
+    "avaibleMissions": ["<MissionId>"],
+    "finishMissions": ["<MissionId>"],
+    "inprogressMissions": ["<MissionId>"],
+    "data": {}
+  },
+
+  // settins <Object>
+  "settings": {
+    "levels": {
+      "start": "<Number>",
+      "max": "<Number>",
+      "stepxp": [{
+        "level": "<Number>",
+        "xp": "<Number>"
+      }]
+    },
+    "link": "<String>",
+    "type": "<String>",
+    "data": {},
+  }
+
+  // teams (feature)
+}

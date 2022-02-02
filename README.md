@@ -1,4 +1,6 @@
+# SELFCODEHERO - easy gamification engine
 
+Gamification engine based on REST API. Easy and reusable service to track user progress, badges, missions and other cool things.
 
 ## Quick Start
 
@@ -16,7 +18,7 @@ Install the dependencies:
 
 ```bash
 yarn install 
-// or
+# or
 npm install
 ```
 
@@ -186,6 +188,13 @@ List of available routes:
 `GET /v1/users/:userId` - get user\
 `PATCH /v1/users/:userId` - update user\
 `DELETE /v1/users/:userId` - delete user
+
+**Game routes**:\
+`POST /v1/games` - create a game\
+`GET /v1/games` - get all games\
+`GET /v1/games/:gameId` - get game\
+`PATCH /v1/games/:gameId` - update game\
+`DELETE /v1/games/:gameId` - delete game
 
 
 ## Linting
