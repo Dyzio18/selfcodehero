@@ -34,10 +34,20 @@ const deleteGame = catchAsync(async (req, res) => {
   res.status(httpStatus.NO_CONTENT).send();
 });
 
+// Badges
+const getBadges = catchAsync(async (req, res) => {
+  const game = await gameService.getGameById(req.params.gameId);
+  if (!game) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Game not found');
+  }
+  res.send(game.badges);
+});
+
 module.exports = {
   createGame,
   getGames,
   getGame,
   updateGame,
   deleteGame,
+  getBadges,
 };

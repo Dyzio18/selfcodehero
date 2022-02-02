@@ -8,9 +8,10 @@ const ApiError = require('../utils/ApiError');
  * @returns {Promise<Game>}
  */
 const createGame = async (gameBody) => {
-  if (await Game.isEmailTaken(gameBody.email)) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken');
-  }
+  // if (await Game.isEmailTaken(gameBody.email)) {
+  //   throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken');
+  // }
+
   return Game.create(gameBody);
 };
 

@@ -1,68 +1,68 @@
 {
   // missions (Array[])
   "missions": {
-    "id": "<UUID*>",
-    "title": "<String>",
-    "desc": "<String>",
+    "id": { "type": UUID* },
+    "title": { "type": String },
+    "desc": { "type": String },
     "data": {},
     "statement": [{
-      "type": "<Enum>",
-      "rule": "<Enum>",
-      "value": "<String>"
+      "type": { "type": Enum },
+      "rule": { "type": Enum },
+      "value": { "type": String }
     }],
-    "task": [{
-      "title": "<String>",
-      "desc": "<String>",
-      "goal": "<String>",
+    "tasks": [{
+      "title": { "type": String },
+      "desc": { "type": String },
+      "goal": { "type": String },
       "statement": [{
-        "type": "<Enum>",
-        "rule": "<Enum>",
-        "value": "<String>"
+        "type": { "type": Enum },
+        "rule": { "type": Enum },
+        "value": { "type": String }
       }]
     }],
     "gain": [{
-      "type": "<BadgeId?>",
-      "value": "<Number?>",
-      "properties": "<String?>"
+      "type": { "type": BadgeId? },
+      "value": { "type": Number? },
+      "properties": { "type": String? }
     }]
   },
 
   // badges <Array[]>
   "badges": {
-    "id": "<UUID*>",
-    "name": "<String>",
-    "desc": "<String>",
-    "url": "<String>",
+    "id": { "type": UUID* },
+    "name": { "type": String },
+    "desc": { "type": String },
+    "url": { "type": String },
     "data": {}
   },
 
   // players <Array[]>
   "players": {
-    "id": "<UUID>",
-    "nick": "<String>",
-    "points": "<Number>",
-    "xp": "<Number>",
-    "level": "<Number>",
-    "badges": ["<BadgeId>"],
-    "avaibleMissions": ["<MissionId>"],
-    "finishMissions": ["<MissionId>"],
-    "inprogressMissions": ["<MissionId>"],
+    "id": { "type": UUID },
+    "nick": { "type": String },
+    "points": { "type": Number },
+    "xp": { "type": Number },
+    "level": { "type": Number },
+    "badges": [{ "type": BadgeId }],
+    "avaibleMissions": [{ "type": MissionId }],
+    "finishMissions": [{ "type": MissionId }],
+    "inprogressMissions": [{ "type": MissionId }],
     "data": {}
   },
 
   // settins <Object>
   "settings": {
     "levels": {
-      "start": "<Number>",
-      "max": "<Number>",
+      "start": { "type": Number },
+      "max": { "type": Number },
       "stepxp": [{
-        "level": "<Number>",
-        "xp": "<Number>"
+        "level": { "type": Number },
+        "xp": { "type": Number }
       }]
     },
-    "link": "<String>",
-    "type": "<String>",
-    "data": {},
+    "link": { "type": String },
+    "type": { "type": String },
+    "data": { type: Object },
   }
 
   // teams (feature)

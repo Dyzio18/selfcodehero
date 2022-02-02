@@ -6,16 +6,20 @@ const gameController = require('../../controllers/game.controller');
 
 const router = express.Router();
 
-router
-  .route('/')
-  .post( gameController.createGame)
-  .get(validate(gameValidation.getGames), gameController.getGames);
+router.route('/').post(gameController.createGame).get(validate(gameValidation.getGames), gameController.getGames);
 
 router
   .route('/:gameId')
   .get(validate(gameValidation.getGame), gameController.getGame)
   .patch(auth('manageGames'), validate(gameValidation.updateGame), gameController.updateGame)
   .delete(auth('manageGames'), validate(gameValidation.deleteGame), gameController.deleteGame);
+
+router
+  .route('/:gameId/badges')
+  .get(validate(gameValidation.getGame), gameController.getBadges)
+  .patch(auth('manageGames'), validate(gameValidation.updateGame), gameController.updateGame);
+
+// .delete(auth('manageGames'), validate(gameValidation.deleteGame), gameController.deleteGame);
 
 module.exports = router;
 
