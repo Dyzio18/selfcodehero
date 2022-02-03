@@ -44,7 +44,9 @@ const getGameById = async (id) => {
  * @returns {Promise<Game>}
  */
 const getGameByEmail = async (email) => {
-  return Game.findOne({ email });
+  return Game.findOne({
+    email,
+  });
 };
 
 /**
@@ -80,6 +82,69 @@ const deleteGameById = async (gameId) => {
   return game;
 };
 
+/**
+ * Badges Service
+ */
+const getBadgeById = async (gameId, badgeId) => {
+  const game = await getGameById(gameId);
+  if (!game) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Game not found');
+  }
+  const badges = game.badges || {};
+  const badge = badges.find((elem) => elem.id.toString() === badgeId);
+  return badge;
+};
+
+/**
+ * Create badge {name, desc, url}
+ * @param {*} gameId
+ * @param {*} updateBody
+ * @returns
+ */
+const createBadge = async (gameId, updateBody) => {
+  const game = await getGameById(gameId);
+  if (!game) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Game not found');
+  }
+  game.badges.push(updateBody);
+  await game.save();
+  return game;
+};
+
+/**
+ * Update badge by id
+ * @param {ObjectId} gameId
+ * @param {Object} updateBody
+ * @returns {Promise<Game>}
+ */
+const updateBadgeById = async (gameId, badgeId, updateBody) => {
+  const game = await getGameById(gameId);
+  if (!game) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Game not found');
+  }
+  const updatesBadges = game.badges.map((elem) => (elem.id.toString() === badgeId ? Object.assign(elem, updateBody) : elem));
+  game.badges = updatesBadges;
+  await game.save();
+  return game;
+};
+
+/**
+ * Delete badge by id
+ * @param {ObjectId} gameId
+ * @param {Object} updateBody
+ * @returns {Promise<Game>}
+ */
+const deleteBadgeById = async (gameId, badgeId) => {
+  const game = await getGameById(gameId);
+  if (!game) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Game not found');
+  }
+  const updatesBadges = game.badges.filter((elem) => elem.id.toString() !== badgeId);
+  game.badges = updatesBadges;
+  await game.save();
+  return game;
+};
+
 module.exports = {
   createGame,
   queryGames,
@@ -87,4 +152,8 @@ module.exports = {
   getGameByEmail,
   updateGameById,
   deleteGameById,
+  getBadgeById,
+  updateBadgeById,
+  createBadge,
+  deleteBadgeById,
 };

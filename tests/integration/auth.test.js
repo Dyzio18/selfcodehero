@@ -38,6 +38,7 @@ describe('Auth routes', () => {
         name: newUser.name,
         email: newUser.email,
         role: 'user',
+        games: expect.any(Array),
         isEmailVerified: false,
       });
 
@@ -97,6 +98,7 @@ describe('Auth routes', () => {
         name: userOne.name,
         email: userOne.email,
         role: userOne.role,
+        games: expect.any(Array),
         isEmailVerified: userOne.isEmailVerified,
       });
 

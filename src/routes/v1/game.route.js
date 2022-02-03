@@ -4,22 +4,29 @@ const validate = require('../../middlewares/validate');
 const gameValidation = require('../../validations/game.validation');
 const gameController = require('../../controllers/game.controller');
 
-const router = express.Router();
+const router = express.Router({
+  mergeParams: true,
+});
 
 router.route('/').post(gameController.createGame).get(validate(gameValidation.getGames), gameController.getGames);
 
 router
   .route('/:gameId')
   .get(validate(gameValidation.getGame), gameController.getGame)
-  .patch(auth('manageGames'), validate(gameValidation.updateGame), gameController.updateGame)
+  .patch(validate(gameValidation.updateGame), gameController.updateGame)
   .delete(auth('manageGames'), validate(gameValidation.deleteGame), gameController.deleteGame);
 
 router
   .route('/:gameId/badges')
-  .get(validate(gameValidation.getGame), gameController.getBadges)
-  .patch(auth('manageGames'), validate(gameValidation.updateGame), gameController.updateGame);
+  .get(validate(gameValidation.getBadges), gameController.getBadges)
+  .post(validate(gameValidation.createBadge), gameController.createBadge);
 
-// .delete(auth('manageGames'), validate(gameValidation.deleteGame), gameController.deleteGame);
+// TODO: add auth('manageGames')
+router
+  .route('/:gameId/badges/:badgeId')
+  .get(validate(gameValidation.getBadge), gameController.getBadge)
+  .patch(validate(gameValidation.updateBadge), gameController.updateBadge)
+  .delete(validate(gameValidation.deleteBadge), gameController.deleteBadge);
 
 module.exports = router;
 

@@ -37,6 +37,7 @@ describe('User routes', () => {
         name: newUser.name,
         email: newUser.email,
         role: newUser.role,
+        games: expect.any(Array),
         isEmailVerified: false,
       });
 
@@ -163,6 +164,7 @@ describe('User routes', () => {
         name: userOne.name,
         email: userOne.email,
         role: userOne.role,
+        games: expect.any(Array),
         isEmailVerified: userOne.isEmailVerified,
       });
     });
@@ -366,6 +368,7 @@ describe('User routes', () => {
         email: userOne.email,
         name: userOne.name,
         role: userOne.role,
+        games: expect.any(Array),
         isEmailVerified: userOne.isEmailVerified,
       });
     });
@@ -498,6 +501,7 @@ describe('User routes', () => {
         id: userOne._id.toHexString(),
         name: updateBody.name,
         email: updateBody.email,
+        games: expect.any(Array),
         role: 'user',
         isEmailVerified: false,
       });

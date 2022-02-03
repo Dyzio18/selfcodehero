@@ -46,10 +46,64 @@ const deleteGame = {
   }),
 };
 
+const createBadge = {
+  params: Joi.object().keys({
+    gameId: Joi.required().custom(objectId),
+  }),
+  body: Joi.object()
+    .keys({
+      name: Joi.string().required(),
+      desc: Joi.string(),
+      url: Joi.string(),
+      data: Joi.object(),
+    })
+    .min(1),
+};
+
+const getBadges = {
+  params: Joi.object().keys({
+    gameId: Joi.required().custom(objectId),
+  }),
+};
+
+const getBadge = {
+  params: Joi.object().keys({
+    gameId: Joi.required().custom(objectId),
+    badgeId: Joi.required().custom(objectId),
+  }),
+};
+
+const updateBadge = {
+  params: Joi.object().keys({
+    gameId: Joi.required().custom(objectId),
+    badgeId: Joi.required().custom(objectId),
+  }),
+  body: Joi.object()
+    .keys({
+      name: Joi.string(),
+      desc: Joi.string(),
+      url: Joi.string(),
+      data: Joi.object(),
+    })
+    .min(1),
+};
+
+const deleteBadge = {
+  params: Joi.object().keys({
+    gameId: Joi.required().custom(objectId),
+    badgeId: Joi.required().custom(objectId),
+  }),
+};
+
 module.exports = {
   createGame,
   getGames,
   getGame,
   updateGame,
   deleteGame,
+  createBadge,
+  getBadges,
+  getBadge,
+  updateBadge,
+  deleteBadge,
 };
