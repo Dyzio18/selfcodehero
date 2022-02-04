@@ -8,25 +8,47 @@ const router = express.Router({
   mergeParams: true,
 });
 
-router.route('/').post(gameController.createGame).get(validate(gameValidation.getGames), gameController.getGames);
+router.route('/').post(auth(), gameController.createGame).get(validate(gameValidation.getGames), gameController.getGames);
 
 router
   .route('/:gameId')
   .get(validate(gameValidation.getGame), gameController.getGame)
-  .patch(validate(gameValidation.updateGame), gameController.updateGame)
-  .delete(auth('manageGames'), validate(gameValidation.deleteGame), gameController.deleteGame);
+  .patch(auth(), validate(gameValidation.updateGame), gameController.updateGame)
+  .delete(auth(), validate(gameValidation.deleteGame), gameController.deleteGame);
 
 router
   .route('/:gameId/badges')
   .get(validate(gameValidation.getBadges), gameController.getBadges)
-  .post(validate(gameValidation.createBadge), gameController.createBadge);
+  .post(auth(), validate(gameValidation.createBadge), gameController.createBadge);
 
-// TODO: add auth('manageGames')
 router
   .route('/:gameId/badges/:badgeId')
   .get(validate(gameValidation.getBadge), gameController.getBadge)
   .patch(validate(gameValidation.updateBadge), gameController.updateBadge)
   .delete(validate(gameValidation.deleteBadge), gameController.deleteBadge);
+
+router
+  .route('/:gameId/missions')
+  .get(validate(gameValidation.getMissions), gameController.getMissions)
+  .post(validate(gameValidation.createMission), gameController.createMission);
+
+router
+  .route('/:gameId/missions/:missionId')
+  .get(validate(gameValidation.getMission), gameController.getMission)
+  .patch(validate(gameValidation.updateMission), gameController.updateMission)
+  .delete(validate(gameValidation.deleteMission), gameController.deleteMission);
+module.exports = router;
+
+router
+  .route('/:gameId/players')
+  .get(validate(gameValidation.getPlayers), gameController.getPlayers)
+  .post(validate(gameValidation.createPlayer), gameController.createPlayer);
+
+router
+  .route('/:gameId/players/:playerId')
+  .get(validate(gameValidation.getPlayer), gameController.getPlayer)
+  .patch(validate(gameValidation.updatePlayer), gameController.updatePlayer)
+  .delete(validate(gameValidation.deletePlayer), gameController.deletePlayer);
 
 module.exports = router;
 

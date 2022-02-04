@@ -1,6 +1,9 @@
 const Joi = require('joi');
 const { password, objectId } = require('./custom.validation');
 
+/**
+ * Games validator
+ */
 const createGame = {
   body: Joi.object().keys({
     email: Joi.string().email(),
@@ -46,6 +49,9 @@ const deleteGame = {
   }),
 };
 
+/**
+ * Badges validator
+ */
 const createBadge = {
   params: Joi.object().keys({
     gameId: Joi.required().custom(objectId),
@@ -95,15 +101,148 @@ const deleteBadge = {
   }),
 };
 
+/**
+ * Missions validator
+ */
+const createMission = {
+  params: Joi.object().keys({
+    gameId: Joi.required().custom(objectId),
+  }),
+  body: Joi.object()
+    .keys({
+      name: Joi.string(),
+      desc: Joi.string(),
+      title: Joi.string(),
+      data: Joi.object(),
+      statement: Joi.array(),
+      tasks: Joi.array(),
+      gain: Joi.array(),
+    })
+    .min(1),
+};
+
+const getMissions = {
+  params: Joi.object().keys({
+    gameId: Joi.required().custom(objectId),
+  }),
+};
+
+const getMission = {
+  params: Joi.object().keys({
+    gameId: Joi.required().custom(objectId),
+    missionId: Joi.required().custom(objectId),
+  }),
+};
+
+const updateMission = {
+  params: Joi.object().keys({
+    gameId: Joi.required().custom(objectId),
+    missionId: Joi.required().custom(objectId),
+  }),
+  body: Joi.object()
+    .keys({
+      name: Joi.string(),
+      desc: Joi.string(),
+      title: Joi.string(),
+      data: Joi.object(),
+      statement: Joi.array(),
+      tasks: Joi.array(),
+      gain: Joi.array(),
+    })
+    .min(1),
+};
+
+const deleteMission = {
+  params: Joi.object().keys({
+    gameId: Joi.required().custom(objectId),
+    missionId: Joi.required().custom(objectId),
+  }),
+};
+
+/**
+ * Player validator
+ */
+const createPlayer = {
+  params: Joi.object().keys({
+    gameId: Joi.required().custom(objectId),
+  }),
+  body: Joi.object()
+    .keys({
+      nick: Joi.string().required(),
+      points: Joi.number(),
+      xp: Joi.number(),
+      level: Joi.number(),
+      badges: Joi.array(),
+      avaibleMissions: Joi.array(),
+      finishMissions: Joi.array(),
+      inprogressMissions: Joi.array(),
+      data: Joi.object(),
+    })
+    .min(1),
+};
+
+const getPlayers = {
+  params: Joi.object().keys({
+    gameId: Joi.required().custom(objectId),
+  }),
+};
+
+const getPlayer = {
+  params: Joi.object().keys({
+    gameId: Joi.required().custom(objectId),
+    playerId: Joi.required().custom(objectId),
+  }),
+};
+
+const updatePlayer = {
+  params: Joi.object().keys({
+    gameId: Joi.required().custom(objectId),
+    playerId: Joi.required().custom(objectId),
+  }),
+  body: Joi.object()
+    .keys({
+      nick: Joi.string(),
+      points: Joi.number(),
+      xp: Joi.number(),
+      level: Joi.number(),
+      badges: Joi.array(),
+      avaibleMissions: Joi.array(),
+      finishMissions: Joi.array(),
+      inprogressMissions: Joi.array(),
+      data: Joi.object(),
+    })
+    .min(1),
+};
+
+const deletePlayer = {
+  params: Joi.object().keys({
+    gameId: Joi.required().custom(objectId),
+    playerId: Joi.required().custom(objectId),
+  }),
+};
+
 module.exports = {
   createGame,
   getGames,
   getGame,
   updateGame,
   deleteGame,
+
   createBadge,
   getBadges,
   getBadge,
   updateBadge,
   deleteBadge,
+
+  createMission,
+  getMissions,
+  getMission,
+  updateMission,
+  deleteMission,
+
+  createPlayer,
+  getPlayers,
+  getPlayer,
+  updatePlayer,
+  deletePlayer,
 };
