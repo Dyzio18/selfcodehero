@@ -6,6 +6,7 @@ yarn-error.log
 
 # Environment varibales
 .env*
+.prod.env
 !.env*.example
 
 # Code coverage

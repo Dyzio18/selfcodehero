@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const faker = require('faker');
+const { userOne } = require('./user.fixture');
 const Game = require('../../src/models/game.model');
 
 const gameOne = {
@@ -8,7 +9,7 @@ const gameOne = {
   email: faker.internet.email().toLowerCase(),
   desc: faker.lorem.paragraph(),
   isEmailVerified: true,
-  owners: ['61fc8282d07ce92260b75c5e'],
+  owners: [userOne._id],
   badges: [
     {
       _id: mongoose.Types.ObjectId(),
@@ -20,7 +21,31 @@ const gameOne = {
       },
     },
   ],
-  missions: [],
+  missions: [
+    {
+      _id: mongoose.Types.ObjectId(),
+      name: 'enter to matrix',
+      title: 'Hi Neo! Follow the rabbit',
+      desc: 'Find real world in ilusion.',
+      statement: [],
+      tasks: [],
+      gain: [
+        {
+          type: 'xp',
+          value: 100,
+        },
+      ],
+    },
+    {
+      _id: mongoose.Types.ObjectId(),
+      name: 'whiteboard transparent schemas matrix',
+      title: 'e-enable wireless users capacitor',
+      desc: 'ab accusantium cupiditate In delectus sint accusamus voluptatem enim id libero.',
+      statement: [],
+      tasks: [],
+      gain: [],
+    },
+  ],
   players: [],
 };
 

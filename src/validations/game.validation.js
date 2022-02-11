@@ -1,5 +1,5 @@
 const Joi = require('joi');
-const { password, objectId } = require('./custom.validation');
+const { objectId } = require('./custom.validation');
 
 /**
  * Games validator
@@ -36,9 +36,14 @@ const updateGame = {
   }),
   body: Joi.object()
     .keys({
+      desc: Joi.string(),
       email: Joi.string().email(),
-      password: Joi.string().custom(password),
       name: Joi.string(),
+      categories: [Joi.object(), Joi.array()],
+      badges: [Joi.object(), Joi.array()],
+      missions: [Joi.object(), Joi.array()],
+      owners: Joi.array(),
+      settings: Joi.object(),
     })
     .min(1),
 };

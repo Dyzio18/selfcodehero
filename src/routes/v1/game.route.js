@@ -9,6 +9,7 @@ const router = express.Router({
 });
 
 router.route('/').post(auth(), gameController.createGame).get(validate(gameValidation.getGames), gameController.getGames);
+router.route('/my').get(auth(), gameController.getGamesByOwner);
 
 router
   .route('/:gameId')

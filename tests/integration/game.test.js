@@ -12,7 +12,7 @@ setupTestDB();
 
 describe('Game routes', () => {
   describe('GET /v1/games', () => {
-    test('should return 200 and apply  options', async () => {
+    test('should return 200 and apply options', async () => {
       await insertGames([gameOne]);
 
       const res = await request(app)

@@ -20,6 +20,12 @@ const getGames = catchAsync(async (req, res) => {
   res.send(result);
 });
 
+// GET games/
+const getGamesByOwner = catchAsync(async (req, res) => {
+  const result = await gameService.getGamesByOwner(req.user.id);
+  res.send(result);
+});
+
 // GET games/:gameId
 const getGame = catchAsync(async (req, res) => {
   const game = await gameService.getGameById(req.params.gameId);
@@ -162,6 +168,7 @@ module.exports = {
   createGame,
   getGames,
   getGame,
+  getGamesByOwner,
   updateGame,
   deleteGame,
 

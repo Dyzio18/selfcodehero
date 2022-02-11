@@ -52,6 +52,17 @@ const getGameByEmail = async (email) => {
 };
 
 /**
+ * Get game by owner
+ * @param {string} email
+ * @returns {Promise<Game>}
+ */
+const getGamesByOwner = async (userId) => {
+  return Game.findOne({
+    owners: userId,
+  });
+};
+
+/**
  * Update game by id
  * @param {ObjectId} gameId
  * @param {Object} updateBody
@@ -335,6 +346,7 @@ module.exports = {
   queryGames,
   getGameById,
   getGameByEmail,
+  getGamesByOwner,
   updateGameById,
   deleteGameById,
 

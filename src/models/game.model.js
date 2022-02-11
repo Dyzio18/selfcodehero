@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const uuid = require('uuid');
 
 const { Schema } = mongoose;
 // const validator = require('validator');
@@ -59,8 +60,31 @@ const _statementSchema = mongoose.Schema(
 const _badgeSchema = mongoose.Schema(
   {
     name: { type: String },
+    categories: [{ type: Schema.Types.ObjectId, ref: 'Category' }],
+    hash: {
+      type: String,
+      // eslint-disable-next-line no-undef
+      default: (generateHashBlock = () => {
+        // Generate random hash (TODO: pass real eth blockchain hash)
+        const hash = uuid.v4();
+        return hash;
+      }),
+    },
     url: { type: String },
     desc: { type: String },
+    data: { type: Object },
+  },
+  {
+    _id: true,
+    timestamps: true,
+  }
+);
+
+const _categorySchema = mongoose.Schema(
+  {
+    name: { type: String, required: true },
+    desc: { type: String },
+    slug: { type: String },
     data: { type: Object },
   },
   {
@@ -73,6 +97,14 @@ const _missionSchema = mongoose.Schema(
   {
     name: { type: String },
     title: { type: String },
+    hash: {
+      type: String,
+      default: () => {
+        // Generate random hash (TODO: pass real eth blockchain hash)
+        const hash = uuid.v4();
+        return hash;
+      },
+    },
     desc: { type: String },
     data: { type: Object },
     statement: [_statementSchema],
@@ -98,6 +130,23 @@ const _missionSchema = mongoose.Schema(
   }
 );
 
+// const _actionSchema = mongoose.Schema(
+//   {
+//     name: { type: String, required: true },
+//     title: { type: String },
+//     desc: { type: String },
+//     data: { type: Object },
+//     statement: [_statementSchema],
+//     nextActions: [{ type: Schema.Types.ObjectId, ref: 'Action' }],
+//     category: { type: String },
+//     type: { type: String },
+//   },
+//   {
+//     _id: true,
+//     timestamps: true,
+//   }
+// );
+
 const gameSchema = mongoose.Schema(
   {
     name: {
@@ -106,6 +155,7 @@ const gameSchema = mongoose.Schema(
       trim: true,
     },
     owners: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+    categories: [_categorySchema],
     email: {
       type: String,
       // required: false,
@@ -118,11 +168,6 @@ const gameSchema = mongoose.Schema(
       //   }
       // },
     },
-    // role: {
-    //   type: String,
-    //   enum: roles,
-    //   default: 'user',
-    // },
     desc: {
       type: String,
     },
@@ -172,9 +217,6 @@ gameSchema.methods.isPasswordMatch = async function (password) {
 
 gameSchema.pre('save', async function (next) {
   // const game = this;
-  // if (game.isModified('password')) {
-  //   game.password = await bcrypt.hash(game.password, 8);
-  // }
   next();
 });
 
@@ -182,9 +224,11 @@ gameSchema.pre('save', async function (next) {
  * @typedef Game
  */
 const Game = mongoose.model('Game', gameSchema);
+// const Category = mongoose.model('Category', _categorySchema);
 // const Badge = mongoose.model('Badge', _badgeSchema);
 // const Mission = mongoose.model('Mission', _missionSchema);
 // const Player = mongoose.model('Player', _playerSchema);
 // const Settings = mongoose.model('Settings', _settingsSchema);
+// const Action = mongoose.model('Action', _actionSchema);
 
 module.exports = Game;
