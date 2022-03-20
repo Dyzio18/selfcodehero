@@ -39,8 +39,9 @@ const _settingsSchema = mongoose.Schema({
       },
     ],
   },
-  link: { type: String },
   type: { type: String },
+  link: { type: String },
+  public: { type: Boolean },
   data: { type: Object },
 });
 

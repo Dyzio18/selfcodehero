@@ -57,7 +57,7 @@ const getGameByEmail = async (email) => {
  * @returns {Promise<Game>}
  */
 const getGamesByOwner = async (userId) => {
-  return Game.findOne({
+  return Game.find({
     owners: userId,
   });
 };
@@ -78,9 +78,9 @@ const updateGameById = async (userId, gameId, updateBody) => {
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Need authenticate, you are not game owner');
   }
 
-  if (updateBody.email && (await Game.isEmailTaken(updateBody.email, gameId))) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken');
-  }
+  // if (updateBody.email) {
+  //   throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken');
+  // }
 
   Object.assign(game, updateBody);
   await game.save();
